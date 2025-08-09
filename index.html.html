@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Possible Classes - From Impossible to I Am Possible (ICSE Only)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #0084FF;
+      color: white;
+      padding: 18px 12px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+    header h2 {
+      margin: 6px 0 0 0;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    header p {
+      margin: 6px 0 0 0;
+      font-style: italic;
+      font-size: 14px;
+    }
+    main {
+      padding: 20px;
+    }
+    form {
+      background: white;
+      max-width: 520px;
+      margin: 18px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea { resize: vertical; min-height:60px; }
+    .row { display:flex; gap:10px; }
+    .row > * { flex:1; }
+    button {
+      margin-top: 15px;
+      background-color: #0077b6;
+      color: white;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    button:hover { background-color: #005f8a; }
+    #confirmation {
+      margin-top: 18px;
+      font-weight: bold;
+      color: green;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      margin: 24px 0;
+      padding: 12px;
+      font-size: 14px;
+      color: #333;
+    }
+    @media (max-width:520px){
+      form{ margin:12px; padding:14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Possible Classes</h1>
+    <h2>2nd Floor Surmil Complex, Singhmore, Ranchi</h2>
+    <p>'From Impossible to I Am Possible' (ICSE Only)</p>
+  </header>
+
+  <main>
+    <form id="parentForm">
+      <label for="studentName">Student's Name:</label>
+      <input type="text" id="studentName" name="studentName" required>
+
+      <label for="studentClass">Class:</label>
+      <select id="studentClass" name="studentClass" required>
+        <option value="">--Select Class--</option>
+        <option value="VI">Six (VI)</option>
+        <option value="VII">Seven (VII)</option>
+        <option value="VIII">Eight (VIII)</option>
+        <option value="IX">Nine (IX)</option>
+        <option value="X">Ten (X)</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="schoolName">School's Name:</label>
+      <input type="text" id="schoolName" name="schoolName" required>
+
+      <label for="course">Course Interested In:</label>
+      <select id="course" name="course" required>
+        <option value="">--Select Course--</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="Science">Science (Physics, Chemistry, Biology)</option>
+        <option value="English">English (Language & Literature)</option>
+        <option value="Computer">Computer</option>
+        <option value="Economics">Economics</option>
+        <option value="Geography">Geography</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="parentName">Father's / Mother's Name:</label>
+      <input type="text" id="parentName" name="parentName" required>
+
+      <label for="address">Address: <small>(optional)</small></label>
+      <textarea id="address" name="address" placeholder="Optional"></textarea>
+
+      <label for="parentPhone">Parent's Phone Number:</label>
+      <input type="tel" id="parentPhone" name="parentPhone" pattern="[0-9]{10}" placeholder="10-digit number" required>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="confirmation" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    Contact us: +91-7909006534 &nbsp; -or- &nbsp; 8294232560
+  </footer>
+
+  <script>
+    // Simple client-side handler: shows confirmation and resets the form.
+    // Later we can connect this to Google Sheets or a backend to save data.
+    document.getElementById('parentForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('studentName').value.trim();
+      const studentClass = document.getElementById('studentClass').value;
+      const course = document.getElementById('course').value;
+      const school = document.getElementById('schoolName').value.trim();
+      const parent = document.getElementById('parentName').value.trim();
+      const phone = document.getElementById('parentPhone').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      // Basic validation
+      if (!name || !studentClass || !course || !school || !parent || !phone) {
+        alert('Please fill all required fields.');
+        return;
+      }
+      if (!/^[0-9]{10}$/.test(phone)) {
+        alert('Enter a valid 10-digit phone number.');
+        return;
+      }
+
+      // Show confirmation message
+      document.getElementById('confirmation').textContent =
+        `Thanks! We received ${name} (Class ${studentClass}) for ${course}. We'll contact ${parent} at ${phone}.`;
+
+      // Reset form after short delay so user sees message
+      setTimeout(() => {
+        document.getElementById('parentForm').reset();
+      }, 1200);
+
+      // TODO: send data to server or Google Sheets (not implemented here)
+    });
+  </script>
+
+</body>
+</html>
